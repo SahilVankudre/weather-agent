@@ -9,7 +9,7 @@ from urllib3 import response
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1", 
-    api_key="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")
+    api_key="api-key")
 
 def get_weather(latitude, longitude): 
     response = requests.get(
@@ -78,7 +78,7 @@ class WeatherResponse(BaseModel):
     )
 
 completion_2 = client.beta.chat.completions.parse(
-    model = "mistralai/devstral-2512:free",
+    model = "model",
     messages=messages,
     tools=tools,
     response_format=WeatherResponse,
@@ -86,4 +86,5 @@ completion_2 = client.beta.chat.completions.parse(
 
 final_response = completion_2.choices[0].message.parsed
 print(final_response.temperature)
+
 print(final_response.response)
